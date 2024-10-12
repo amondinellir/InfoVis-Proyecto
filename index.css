@@ -1,0 +1,6 @@
+#myDiv {
+    margin: 0 auto; /* Centra el div horizontalmente */
+    display: block;
+    width: 1000px; /* Debe coincidir con el ancho del gráfico */
+    height: 500px
+  }

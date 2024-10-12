@@ -60,7 +60,7 @@ var incendios = [
         "Hectareas": 378316.03
     },
     {
-        "ID": 14,
+        "ID": 13,
         "Año": 2024,
         "Hectareas": 51783.01
     }
