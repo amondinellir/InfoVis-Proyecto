@@ -2,5 +2,35 @@
     margin: 0 auto; /* Centra el div horizontalmente */
     display: block;
     width: 1000px; /* Debe coincidir con el ancho del gráfico */
-    height: 500px
+    height: 450px;
+    /* border: 3px solid #ffffff;  /* Borde negro de 3px */
+    border-radius: 10px;  /* Bordes redondeados */
+    padding: 10px;  /* Espacio entre el borde y el gráfico */
+    background-color: rgba(255, 255, 255, 0.5);  /* Fondo semitransparente dentro del marco, si lo deseas */
   }
+
+  body {
+    background: linear-gradient(to right, #990505, #F2AB27); /* Degradé de naranja a rosado */
+    margin: 0;
+    padding: 0;
+    font-family: 'Courier New Black', sans-serif; /* Fuente básica */
+}
+
+#title {
+  text-align: center;  /* Centra el texto dentro del div con id 'title' */
+  margin: 20px 0;      /* Añade espacio superior e inferior alrededor del título */
+}
+
+h1 {
+  font-family: 'Courier New Black', sans-serif; /* Puedes elegir la fuente que prefieras */
+  font-size: 36px;                  /* Tamaño del texto del h1 */
+  color: #400600;                   /* Color del texto */
+  font-weight: bold;                /* Negrita */
+}
+
+h2 {
+  font-family: 'Courier New Black', sans-serif; /* Estilo de fuente para h2 */
+  font-size: 24px;                  /* Tamaño del texto del h2 */
+  color: #400600;                   /* Color más claro para el h2 */
+  font-weight: normal;              /* Normal o bold, según prefieras */
+}
