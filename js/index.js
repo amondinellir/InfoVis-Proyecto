@@ -7,15 +7,17 @@ var textPositions = posiciones.map(function(pos) {
     return pos ? 'top center' : 'bottom center';
 });
 
-// Datos de tickets procesados
+
+
+
 var processed = {
     x: years,
     y: hects,
     text: hects.map(function(h) { return '<b>' + h + '</b>'; }),
     textposition: textPositions,
     textfont: { 
-        family: 'Courier New, monospace',  // Cambia el estilo de la fuente
-        size: 15,                          // Ajusta el tamaño de la letra
+        family: 'Courier New, monospace',  
+        size: 15,                         
         color: '#0D0D0D'
     },
     mode: 'lines+markers+text',
@@ -23,7 +25,6 @@ var processed = {
     line: { color: 'rgb(182, 0, 0)', width: 4 }
 };
 
-// Configuración del diseño del gráfico
 var layout = {
     showlegend: false,
     paper_bgcolor: 'rgba(0,0,0,0)',
@@ -76,9 +77,41 @@ var layout = {
     margin: { autoexpand: false, l: 70, r: 100, t: 130 },
 };
 
-// Genera el gráfico
+
+let contextDiv = document.createElement("div");
+contextDiv.setAttribute("id", "context");
+contextDiv.style.margin = "20px auto";
+contextDiv.style.padding = "10px";
+contextDiv.style.backgroundColor = "rgba(255, 255, 255, 0.8)";
+contextDiv.style.borderRadius = "10px";
+
+contextDiv.innerHTML = `
+  <h2>Contexto de los datos</h2>
+  <p>
+    Chile ha sido recurrentemente afectado por incendios forestales en las últimas décadas, impactando gravemente su superficie forestal. 
+    Estos incendios tienen múltiples causas, que van desde condiciones climáticas extremas como olas de calor, hasta la intervención humana
+  </p>
+  <h2>Años críticos</h2>
+  <p>
+    <strong>2017:</strong> El año 2017 destaca por ser el más destructivo en la historia reciente,  fue una combinación de una sequía prolongada, 
+    altas temperaturas y vientos fuertes, que, sumado a la intervención humana y la presencia de monocultivos inflamables (pinos y eucaliptos), 
+    provocó que los incendios se extendieran rápidamente.
+  </p>
+  <p>
+    <strong>2023:</strong> En 2023, los incendios fueron causados por olas de calor extremo, condiciones de sequía severa, y la expansión de 
+    los monocultivos, factores que facilitaron la rápida propagación de los incendios. Además, la intervención humana, tanto accidental 
+    como intencionada, jugó un papel importante en el inicio y la magnitud de los incendios.
+  </p>
+`;
+
+document.getElementById("myDiv").appendChild(contextDiv);
+
+let container = document.getElementById("myDiv");
+container.parentNode.insertBefore(contextDiv, container);
+
+
 Plotly.newPlot('myDiv', [processed], layout, {
     staticPlot: true,
-    width: 1000,   // Ajusta el ancho del gráfico
-    height: 380    // Ajusta la altura del gráfico
+    width: 1000,   
+    height: 380   
 });
