@@ -6,10 +6,21 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // Prepare demo data. The data is joined to map using the value of the 'hc-key'
     const data = [
-        ['cl-2730', 10], ['cl-bi', 11], ['cl-ll', 12], ['cl-li', 13],
-        ['cl-ai', 14], ['cl-ma', 15], ['cl-co', 16], ['cl-at', 17],
-        ['cl-vs', 18], ['cl-rm', 19], ['cl-ar', 20], ['cl-ml', 21],
-        ['cl-ta', 22], ['cl-2740', 23], ['cl-an', 24]
+        { 'hc-key': 'cl-2730', value: 10, customInfo: 'IX' },
+        { 'hc-key': 'cl-bi', value: 11, customInfo: 'VIII' },
+        { 'hc-key': 'cl-ll', value: 12, customInfo: 'X' },
+        { 'hc-key': 'cl-li', value: 13, customInfo: 'VI' },
+        { 'hc-key': 'cl-ai', value: 14, customInfo: 'XI' },
+        { 'hc-key': 'cl-ma', value: 15, customInfo: 'XII' },
+        { 'hc-key': 'cl-co', value: 16, customInfo: 'IV' },
+        { 'hc-key': 'cl-at', value: 17, customInfo: 'III' },
+        { 'hc-key': 'cl-vs', value: 18, customInfo: 'V' },
+        { 'hc-key': 'cl-rm', value: 19, customInfo: 'RM' },
+        { 'hc-key': 'cl-ar', value: 20, customInfo: 'XIV' },
+        { 'hc-key': 'cl-ml', value: 21, customInfo: 'VII' },
+        { 'hc-key': 'cl-ta', value: 22, customInfo: 'I' },
+        { 'hc-key': 'cl-2740', value: 23, customInfo: 'XV' },
+        { 'hc-key': 'cl-an', value: 24, customInfo: 'II' }
     ];
 
     // Create the map
@@ -26,8 +37,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         exporting: {enabled: false},
         credits: {enabled: false},
         colorAxis: {
-            min: 10,
-            max: 24,
+            min: 0,
+            max: 252556.10,
             stops: [
                 [0, '#FFFFFF'],   // White at the minimum value
                 [0.2, '#FFEDA0'], // Light yellow
@@ -37,14 +48,15 @@ document.addEventListener("DOMContentLoaded", async () => {
         },
         series: [{
             data: data,
+            joinBy: 'hc-key',
             states: {
                 hover: {
                     color: '#BADA55'
                 }
             },
             dataLabels: {
-                enabled: false,
-                format: '{point.name}'
+                enabled: true,
+                format: '{point.customInfo}'
             }
         }],
         legend: {enabled: false}
