@@ -1,0 +1,59 @@
+#myDiv {
+    margin: 0 auto;
+    display: block;
+    width: 1000px; 
+    height: 460px;
+
+    border-radius: 10px;  
+    padding: 10px;  
+    background-color: rgba(255, 255, 255, 0.5); 
+  }
+
+  body {
+    background: linear-gradient(to right, #990505, #F2AB27); 
+    margin: 0;
+    padding: 0;
+    font-family: 'Courier New Black', sans-serif; 
+  }
+
+#title {
+  text-align: center;  
+  margin: 20px 0;     
+}
+
+h1 {
+  font-family: 'Courier New Black', sans-serif; 
+  font-size: 36px;                 
+  color: #400600;                   
+  font-weight: bold;               
+}
+
+h2 {
+  font-family: 'Courier New Black', sans-serif; 
+  font-size: 24px;                  
+  color: #400600;                  
+  font-weight: normal;              
+}
+#context {
+  font-family: 'Courier New', sans-serif;
+  font-size: 14px;  
+  color: #400600;
+  line-height: 1.2; 
+  width: 1450px;     
+  margin: 10px auto;  
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
+}
+
+#context h2 {
+  font-size: 14px; 
+  color: #990505;
+  margin-top: 5px;
+}
+
+#context p {
+  margin: 5px 0;
+  color: #400600;
+}
+

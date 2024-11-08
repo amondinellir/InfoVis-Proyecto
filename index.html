@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="index.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/15.1.3/Tone.js"></script> <!-- Aquí se importa la librería Tone.js -->
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script> <!-- AQUI SE IMPORTA LA LIBRERIA PLOTLY.JS -->
+    <script src="https://code.highcharts.com/maps/highmaps.js"></script>
+    <script src="https://code.highcharts.com/maps/modules/exporting.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.1/xlsx.full.min.js"></script> <!-- Include the xlsx library -->
     <script src="js/data.js" defer></script>
     <script src="js/index.js" defer></script>
 </head>
@@ -16,7 +19,8 @@
 		<h1>Superficie afectada por incendios forestales</h1>
             <h2>Chile, 2012 - 2024</h2>
 	</div>
-    <div id='myDiv'></div>
+    <div id="mapContainer"></div>
+    
 </body>
 
 </html>
