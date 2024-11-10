@@ -53,8 +53,8 @@ document.addEventListener("DOMContentLoaded", async () => {
             stops: [
                 [0, '#FFFFFF'],   // White at the minimum value
                 [0.000001, '#FFEDA0'], // Light yellow
-                [0.4, '#FEB24C'], // Intermediate orange
-                [1, '#F03B20']    // Dark red at the maximum value
+                [0.01, '#FEB24C'], // Intermediate orange
+                [0.1, '#F03B20']    // Dark red at the maximum value
             ]
         },
         
