@@ -145,3 +145,54 @@ document.addEventListener("DOMContentLoaded", async () => {
 });
 
 
+document.addEventListener('DOMContentLoaded', function() {
+
+    if (!localStorage.getItem('hasVisited')) {
+        document.getElementById('welcomeModal').style.display = 'block';
+    }
+    
+    
+    document.getElementById('startTour').onclick = function() {
+        document.getElementById('welcomeModal').style.display = 'none';
+        startTour(); 
+        localStorage.setItem('hasVisited', 'true');
+    };
+});
+
+
+function startTour() {
+    const tour = introJs();
+    tour.setOptions({
+        steps: [
+            { 
+                intro: "¡Bienvenido! Aquí aprenderás a usar las funciones principales de esta página."
+            },
+            {
+                element: document.querySelector('#yearSelector'),
+                intro: "Usa este selector para elegir el año que deseas visualizar en el mapa. Cambiar el año actualiza la información de hectáreas quemadas y cantidad de incendios en cada región.",
+                position: 'right'
+            },
+            {
+                element: document.querySelector('#mapContainer'),
+                intro: "Este es el mapa interactivo. Pasa el cursor sobre las regiones para ver los datos específicos de hectáreas quemadas e incendios en el año seleccionado.",
+                position: 'left'
+            },
+            {
+                element: document.querySelector('#hectareasChart'),
+                intro: "Este gráfico muestra la superficie total afectada por incendios forestales a lo largo de los años. Puedes pasar el cursor sobre los puntos del gráfico para ver datos específicos por año.",
+                position: 'top'
+            },
+            {
+                intro: "¡Listo! Ahora puedes explorar la página y analizar los datos a tu gusto."
+            }
+        ],
+        showStepNumbers: false,
+        showProgress: true,
+        exitOnOverlayClick: false,
+        overlayOpacity: 0.6,
+        nextLabel: 'Siguiente',
+        prevLabel: 'Anterior',
+        doneLabel: 'Terminar'
+    });
+    tour.start();
+}

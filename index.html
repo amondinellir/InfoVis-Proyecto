@@ -11,12 +11,22 @@
     <script src="https://code.highcharts.com/maps/modules/exporting.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.1/xlsx.full.min.js"></script> <!-- Include the xlsx library -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/4.2.2/introjs.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/4.2.2/intro.min.js"></script>
     <script src="js/index.js" defer></script>
     <script src="js/data/hectareas.js" defer></script>
     <script src="js/data/cant_incendios.js" defer></script>
 </head>
 
 <body>
+    <div id="welcomeModal" class="modal">
+        <div class="modal-content">
+          <h2>Bienvenido a la Página de Incendios Forestales</h2>
+          <p>En esta página puedes explorar datos históricos sobre incendios forestales en Chile, interactuar con el mapa y visualizar gráficos detallados.</p>
+          <button id="startTour">Comenzar</button>
+        </div>
+      </div>
+      
     <div id='title'>
 		<h1>Incendios Forestales</h1>
             <h2>Chile, 2000 - 2024</h2>
