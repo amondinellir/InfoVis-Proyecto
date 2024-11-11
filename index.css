@@ -44,11 +44,11 @@ h2 {
   border-radius: 10px;
 }
 
-.chart-container {
-  width: 80%;
-  max-width: 700px;
-  margin: 0 auto;
-  padding: 20px;
+#mapContainer, .chart-container {
+  background-color: rgba(255, 255, 255, 0.8); /* Fondo blanco translúcido */
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
 }
 
 #mapContainer {
@@ -57,32 +57,28 @@ h2 {
   left: 20px;
   height: 580px;
   width: 25%;
-  background-color: rgba(248, 201, 113, 0.8);
-  border-radius: 10px;
-  padding: 10px;
-}
-
-#mapContainer:hover {
-  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
-}
-
-.loading {
-  margin-top: 10em;
-  text-align: center;
-  color: rgb(238, 160, 35);
 }
 
 #yearSelector {
   position: absolute;
-  top: 120px;
-  left: 30%;
-  width: 220px;
+  top: 10px;
+  left:30%;
+  width: 150px;
   height: 50px;
   display: block;
-  padding: 5px;
+  padding: 2px;
   font-size: 20px;
   border-radius: 5px;
   border: 1px solid #400600;
   background-color: rgba(255, 255, 255, 0.8);
   color: #400600;
+  z-index: 2;
+}
+
+.chart-container {
+  width: 40%;
+  max-width: 800px;
+  margin: auto;
+  padding: 100 px;
+  margin-top: 50 px; /* Espacio para evitar que choque con el selector */
 }

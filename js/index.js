@@ -84,23 +84,20 @@ document.addEventListener("DOMContentLoaded", async () => {
             plugins: {
                 legend: {
                     position: 'top',
-                    labels: { color: '#FFFFFF' }
                 },
                 title: {
                     display: true,
                     text: 'Superficie Total Afectada por Incendios Forestales por Año',
-                    color: '#FFFFFF',
                     font: { size: 18 }
                 }
             },
             scales: {
                 x: {
-                    title: { display: true, text: 'Año', color: '#FFFFFF' },
-                    ticks: { color: '#FFFFFF' }
+                    title: { display: true, text: 'Año'},
+
                 },
                 y: {
-                    title: { display: true, text: 'Hectáreas Quemadas', color: '#FFFFFF' },
-                    ticks: { color: '#FFFFFF' },
+                    title: { display: true, text: 'Hectáreas Quemadas' },
                     beginAtZero: true
                 }
             },
