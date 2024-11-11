@@ -78,6 +78,13 @@ document.addEventListener("DOMContentLoaded", async () => {
             dataLabels: {
                 enabled: true,
                 format: '{point.id}'
+            },
+            point: {
+                events: {
+                    click: function() {
+                        playFireSound(this.hectareas); // Reproduce sonido según hectáreas
+                    }
+                }
             }
         }]
     });
@@ -196,3 +203,36 @@ function startTour() {
     });
     tour.start();
 }
+
+let currentAudio = null;
+
+function playFireSound(hectareas) {
+
+    if (currentAudio) {
+        currentAudio.pause();
+        currentAudio.currentTime = 0; 
+    }
+
+    let audio;
+    if (hectareas > 1000) {
+        audio = new Audio('sounds/fire.mp3'); 
+        audio.volume = 1.0; 
+    } else {
+        audio = new Audio('sounds/fire.mp3'); 
+        audio.volume = 0.3; 
+    }
+
+   
+    currentAudio = audio;
+    audio.play().catch(error => {
+        console.error("Error al reproducir el sonido:", error);
+    });
+}
+
+document.addEventListener('click', (event) => {
+    if (currentAudio && !event.target.closest('#mapContainer')) { 
+        currentAudio.pause();
+        currentAudio.currentTime = 0;
+        currentAudio = null; 
+    }
+});
