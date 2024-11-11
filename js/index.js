@@ -15,11 +15,15 @@ document.addEventListener("DOMContentLoaded", async () => {
     ];
 
     function getDataForYear(year) {
-        const yearData = hectareas.find(item => item.Año === year);
-        if (yearData) {
+        const yearDataHectareas = hectareas.find(item => item.Año === year);
+        const yearDataIncendios = cant_incendios.find(item => item.Año === year);
+
+        if (yearDataHectareas && yearDataIncendios) {
             return data.map(region => ({
                 ...region,
-                value: yearData[region.id] || 0
+                hectareas: yearDataHectareas[region.id] || 0,
+                incendios: yearDataIncendios[region.id] || 0,
+                value: yearDataHectareas[region.id] || 0 // Usa hectáreas para el color del mapa
             }));
         }
         return data;
@@ -31,8 +35,19 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
 
     const chart = Highcharts.mapChart('mapContainer', {
-        chart: { map: topology },
-        title: { text: '' },
+        chart: { 
+            map: topology,
+            width: null, // Permite que el contenedor del mapa determine su ancho
+            height: null // Permite que el contenedor del mapa determine su altura
+        },
+        title: {
+            text: 'Mapa de Incendios Forestales en Chile', 
+            align: 'center', 
+            style: {
+                fontSize: '18px', 
+                color: '#400600' 
+            }
+        },
         exporting: { enabled: false },
         credits: { enabled: false },
         legend: { enabled: false },
@@ -50,7 +65,13 @@ document.addEventListener("DOMContentLoaded", async () => {
                 [0.1, '#F03B20']
             ]
         },
+        tooltip: {
+            pointFormatter: function() {
+                return `<b>${this.name || this.id}</b><br>Hectáreas Quemadas: ${this.hectareas}<br>Incendios: ${this.incendios}`;
+            }
+        },
         series: [{
+            name: '',
             data: getDataForYear(2024),
             joinBy: 'hc-key',
             states: { hover: { color: '#BADA55' } },
@@ -95,6 +116,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             scales: {
                 x: {
                     title: { display: true, text: 'Año'},
+
                 },
                 y: {
                     title: { display: true, text: 'Hectáreas Quemadas' },
@@ -120,45 +142,57 @@ document.addEventListener("DOMContentLoaded", async () => {
     };
 
     new Chart(document.getElementById('hectareasChart'), lineChartConfig);
-
-    // --- Integración de sonido de fuego ---
-
-    // Cargar el sonido de fuego
-    const fireSound = new Tone.Player("sounds/fuego.mp3").toDestination();
-    fireSound.loop = true; // Hacer que el sonido se repita mientras el cursor esté en la región
-
-    // Función para ajustar el volumen según hectáreas quemadas
-    function setVolumeByHectares(hectareas) {
-        const maxHectareas = 252556.10; // Valor máximo de hectáreas según los datos
-        const volume = -30 + (30 * (hectareas / maxHectareas)); // Escala de -30 dB a 0 dB
-        fireSound.volume.value = volume;
-    }
-
-    // Función para manejar el evento mouseover en la región del mapa
-    function onRegionHover(event) {
-        const regionId = event.point.id; // Id de la región seleccionada
-        const selectedYear = parseInt(document.getElementById('yearSelector').value);
-        
-        // Obtener el valor de hectáreas quemadas para la región y año seleccionados
-        const yearData = hectareas.find(item => item.Año === selectedYear);
-        const hectareasQuemadas = yearData ? yearData[regionId] || 0 : 0;
-        
-        // Ajustar volumen según las hectáreas y comenzar el sonido
-        setVolumeByHectares(hectareasQuemadas);
-        fireSound.start();
-    }
-
-    // Detener el sonido cuando se sale de la región
-    function onRegionOut() {
-        fireSound.stop();
-    }
-
-    // Configurar los eventos para las regiones del mapa
-    chart.series[0].points.forEach(point => {
-        point.on('mouseOver', onRegionHover);
-        point.on('mouseOut', onRegionOut);
-    });
-
-    // Iniciar el sonido al cargar la página para probarlo
-    fireSound.start();
 });
+
+
+document.addEventListener('DOMContentLoaded', function() {
+
+    if (!localStorage.getItem('hasVisited')) {
+        document.getElementById('welcomeModal').style.display = 'block';
+    }
+    
+    
+    document.getElementById('startTour').onclick = function() {
+        document.getElementById('welcomeModal').style.display = 'none';
+        startTour(); 
+        localStorage.setItem('hasVisited', 'true');
+    };
+});
+
+
+function startTour() {
+    const tour = introJs();
+    tour.setOptions({
+        steps: [
+            { 
+                intro: "¡Bienvenido! Aquí aprenderás a usar las funciones principales de esta página."
+            },
+            {
+                element: document.querySelector('#yearSelector'),
+                intro: "Usa este selector para elegir el año que deseas visualizar en el mapa. Cambiar el año actualiza la información de hectáreas quemadas y cantidad de incendios en cada región.",
+                position: 'right'
+            },
+            {
+                element: document.querySelector('#mapContainer'),
+                intro: "Este es el mapa interactivo. Pasa el cursor sobre las regiones para ver los datos específicos de hectáreas quemadas e incendios en el año seleccionado.",
+                position: 'left'
+            },
+            {
+                element: document.querySelector('#hectareasChart'),
+                intro: "Este gráfico muestra la superficie total afectada por incendios forestales a lo largo de los años. Puedes pasar el cursor sobre los puntos del gráfico para ver datos específicos por año.",
+                position: 'top'
+            },
+            {
+                intro: "¡Listo! Ahora puedes explorar la página y analizar los datos a tu gusto."
+            }
+        ],
+        showStepNumbers: false,
+        showProgress: true,
+        exitOnOverlayClick: false,
+        overlayOpacity: 0.6,
+        nextLabel: 'Siguiente',
+        prevLabel: 'Anterior',
+        doneLabel: 'Terminar'
+    });
+    tour.start();
+}
