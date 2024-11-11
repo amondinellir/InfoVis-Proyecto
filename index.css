@@ -19,6 +19,7 @@ body {
 
 #title {
   text-align: center;
+  left: 60%;
   margin: 30px auto;
   padding: 0px;
   width: 100%;
@@ -150,7 +151,7 @@ body {
 }
 .modal-content {
   position: absolute;
-  top: 50%;
+  top: 20%;
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: white;
@@ -161,3 +162,4 @@ body {
   max-width: 500px;
   z-index: 10000; /* Incluso más alto para asegurarse de que el contenido sea el foco principal */
 }
+
