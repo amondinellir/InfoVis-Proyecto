@@ -39,7 +39,14 @@
         <h2>Contexto</h2>
         <p>Chile ha sido recurrentemente afectado por incendios forestales en las últimas décadas, impactando gravemente su superficie forestal. Estos incendios tienen múltiples causas, que van desde condiciones climáticas extremas como olas de calor, hasta la intervención humana.</p>
       </div>
-      
+   
+    <div id="explanationModal" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 20px; border-radius: 8px; box-shadow: 0px 0px 10px rgba(0,0,0,0.5); z-index: 1000;">
+      <h3 id="modalTitle"></h3>
+      <p id="modalContent"></p>
+      <button onclick="closeModal()">Cerrar</button>
+    </div>
+    <div id="modalOverlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 999;" onclick="closeModal()"></div>
+
     <div id="mapContainer"></div>
     <select id="yearSelector">
         <option value="2024">2024</option>
