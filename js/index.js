@@ -15,11 +15,15 @@ document.addEventListener("DOMContentLoaded", async () => {
     ];
 
     function getDataForYear(year) {
-        const yearData = hectareas.find(item => item.Año === year);
-        if (yearData) {
+        const yearDataHectareas = hectareas.find(item => item.Año === year);
+        const yearDataIncendios = cant_incendios.find(item => item.Año === year);
+
+        if (yearDataHectareas && yearDataIncendios) {
             return data.map(region => ({
                 ...region,
-                value: yearData[region.id] || 0
+                hectareas: yearDataHectareas[region.id] || 0,
+                incendios: yearDataIncendios[region.id] || 0,
+                value: yearDataHectareas[region.id] || 0 // Usa hectáreas para el color del mapa
             }));
         }
         return data;
@@ -31,8 +35,19 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
 
     const chart = Highcharts.mapChart('mapContainer', {
-        chart: { map: topology },
-        title: { text: '' },
+        chart: { 
+            map: topology,
+            width: null, // Permite que el contenedor del mapa determine su ancho
+            height: null // Permite que el contenedor del mapa determine su altura
+        },
+        title: {
+            text: 'Mapa de Incendios Forestales en Chile', 
+            align: 'center', 
+            style: {
+                fontSize: '18px', 
+                color: '#400600' 
+            }
+        },
         exporting: { enabled: false },
         credits: { enabled: false },
         legend: { enabled: false },
@@ -50,7 +65,13 @@ document.addEventListener("DOMContentLoaded", async () => {
                 [0.1, '#F03B20']
             ]
         },
+        tooltip: {
+            pointFormatter: function() {
+                return `<b>${this.name || this.id}</b><br>Hectáreas Quemadas: ${this.hectareas}<br>Incendios: ${this.incendios}`;
+            }
+        },
         series: [{
+            name: '',
             data: getDataForYear(2024),
             joinBy: 'hc-key',
             states: { hover: { color: '#BADA55' } },

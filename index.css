@@ -9,8 +9,9 @@ body {
 #myDiv {
   margin: 0 auto;
   display: block;
-  width: 1000px;
-  height: 460px;
+  width: 90%;
+  max-width: 1000px;
+  height: auto;
   border-radius: 10px;
   padding: 10px;
   background-color: rgba(233, 155, 9, 0.336);
@@ -20,21 +21,18 @@ body {
   text-align: center;
   margin: 30px auto;
   padding: 0px;
-  max-width: 800px;
-  position: relative;
-  top: 20px;
-  left: 150px;
+  width: 100%;
 }
 
 #title h1 {
-  font-size: 36px;
+  font-size: 2em;
   color: #ffffff; 
   margin: 0;
   font-weight: bold;
 }
 
 #title h2 {
-  font-size: 20px;
+  font-size: 1.2em;
   color: #f5eeee;
   margin-top: 5px;
   font-weight: normal;
@@ -55,11 +53,13 @@ body {
   font-size: 14px;
   color: #400600;
   line-height: 1.2;
-  width: 1450px;
+  width: 75%;
+  max-width: 1450px;
   margin: 10px auto;
   padding: 10px;
   background-color: rgba(255, 255, 255, 0.8);
   border-radius: 10px;
+  margin-left: 23%;
 }
 
 #mapContainer, .chart-container {
@@ -67,6 +67,8 @@ body {
   border-radius: 10px;
   padding: 10px;
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
+  width: 90%; /* Ajuste en porcentaje para que sea responsive */
+  max-width: 950px;
 }
 
 #mapContainer {
@@ -79,14 +81,14 @@ body {
 
 #yearSelector {
   position: absolute;
-  top: 20px; /* Ajusta la distancia desde la parte superior */
-  left: 440px; /* Centramos el selector horizontalmente */
-  transform: translateX(-50%); /* Para centrar el selector basado en el centro del elemento */
-  width: 100px; /* Ancho aumentado para una mejor visibilidad */
-  height: 45px; /* Altura ajustada */
-  padding: 5px 10px; /* Más padding para una apariencia más espaciosa */
-  font-size: 18px; /* Ajusta el tamaño de fuente */
-  border-radius: 15px; /* Bordes más redondeados */
+  top: 20px; 
+  left: calc(25% + 60px); 
+  transform: translateX(-50%); 
+  width: 100px; 
+  height: 45px; 
+  padding: 5px 10px; 
+  font-size: 18px; 
+  border-radius: 15px; 
   border: 2px solid #400600; /* Borde más grueso */
   background-color: rgba(255, 255, 255, 0.9); /* Fondo ligeramente opaco */
   color: #400600; /* Color del texto */
@@ -96,9 +98,9 @@ body {
 
 
 .chart-container {
-  position: absolute; /* O `fixed` si quieres que permanezca al hacer scroll */
-  top: 250px; /* Ajusta la distancia desde el borde superior */
-  left: 450px; /* Ajusta la distancia desde el borde izquierdo */
+  position: absolute; 
+  top: 250px; 
+  left: 450px; 
   width: 90%;
   height: 300px;
   max-width: 950px;
@@ -114,7 +116,7 @@ body {
   max-width: 950px;
   margin: 30px auto;
   padding: 20px;
-  background-color:  rgba(255, 255, 255, 0.8); /* Fondo ligeramente gris */
+  background-color:  rgba(255, 255, 255, 0.8); 
   color: #400600;
   font-size: 14px;
   border-radius: 10px;
