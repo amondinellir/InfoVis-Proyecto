@@ -69,8 +69,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         datasets: [{
             label: 'Superficie Total Afectada (Hectáreas)',
             data: dataForLineChart,
-            borderColor: 'rgba(75, 192, 192, 1)',
-            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            borderColor: 'rgba(255, 99, 132, 1)',
+            backgroundColor: 'rgba(255, 99, 132, 0.2)',
             fill: true,
             tension: 0.4
         }]
@@ -81,6 +81,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         data: lineChartData,
         options: {
             responsive: true,
+            maintainAspectRatio: false,
             plugins: {
                 legend: {
                     position: 'top',
@@ -102,7 +103,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 }
             },
             layout: {
-                padding: { left: 20, right: 20, top: 20, bottom: 20 }
+                padding: { left: 20, right: 50, top: 10, bottom: 10 }
             },
             elements: {
                 line: {
@@ -121,3 +122,5 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     new Chart(document.getElementById('hectareasChart'), lineChartConfig);
 });
+
+
