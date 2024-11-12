@@ -1,6 +1,8 @@
 body {
   position: relative;
   background: linear-gradient(to right, #990505, #F2AB27);
+  background-size: cover;
+  background-attachment: fixed;
   margin: 0;
   padding: 0;
   font-family: 'Courier New Black', sans-serif;
@@ -14,25 +16,27 @@ body {
   height: auto;
   border-radius: 10px;
   padding: 10px;
-  background-color: rgba(233, 155, 9, 0.336);
+  background-color: rgba(233, 155, 9, 0.7);
 }
 
 #title {
-  text-align: center;
+  text-align: right; /**/
   margin: 30px auto;
   padding: 0px;
   width: 100%;
+  position: relative;
+  right: 5%; /*  para q se desplace */
 }
 
 #title h1 {
-  font-size: 2em;
-  color: #ffffff; 
+  font-size: 2.5em;
+  color: #ffffff;
   margin: 0;
   font-weight: bold;
 }
 
 #title h2 {
-  font-size: 1.2em;
+  font-size: 1.4em;
   color: #f5eeee;
   margin-top: 5px;
   font-weight: normal;
@@ -44,66 +48,67 @@ body {
   width: 60px;
   height: 4px;
   background-color: #400600;
-  margin: 10px auto 0;
+  margin: 10px 0 0 0;
+  position: absolute;
+  right: 0; /* Alineado a la derecha */
   border-radius: 2px;
 }
 
 
 #context {
-  font-size: 14px;
+  font-size: 16px;
   color: #400600;
-  line-height: 1.2;
+  line-height: 1.6;
   width: 75%;
   max-width: 1450px;
-  margin: 10px auto;
-  padding: 10px;
-  background-color: rgba(255, 255, 255, 0.8);
+  margin: 20px auto;
+  padding: 15px;
+  background-color: rgba(255, 255, 255, 0.85);
   border-radius: 10px;
-  margin-left: 23%;
+  position: relative;
+  left: 30%; /* mantener la posición */
 }
 
 #mapContainer, .chart-container {
-  background-color: rgba(255, 255, 255, 0.8); /* Fondo blanco translúcido */
+  background-color: rgba(255, 255, 255, 0.8);
   border-radius: 10px;
-  padding: 10px;
-  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
-  width: 90%; /* Ajuste en porcentaje para que sea responsive */
+  padding: 15px;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.4);
+  width: 90%;
   max-width: 950px;
 }
 
 #mapContainer {
   position: absolute;
-  top: 2px;
-  left: 50px;
+  top: 2%;
+  left: 5%;
   height: 630px;
   width: 20%;
 }
 
 #yearSelector {
   position: absolute;
-  top: 20px; 
-  left: calc(25% + 60px); 
-  transform: translateX(-50%); 
-  width: 100px; 
-  height: 45px; 
-  padding: 5px 10px; 
-  font-size: 18px; 
-  border-radius: 15px; 
-  border: 2px solid #400600; /* Borde más grueso */
-  background-color: rgba(255, 255, 255, 0.9); /* Fondo ligeramente opaco */
-  color: #400600; /* Color del texto */
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para hacerlo más visible */
-  z-index: 10; /* Asegura que esté en un nivel superior */
+  top: 80px;
+  left: 30%; /* Alineado a la izquierda de #context */
+  transform: translateX(0%); /* Sin desplazamiento horizontal */
+  width: 100px;
+  height: 45px;
+  padding: 5px 10px;
+  font-size: 18px;
+  border-radius: 15px;
+  border: 2px solid #400600;
+  background-color: rgba(255, 255, 255, 0.9);
+  color: #400600;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 10;
 }
 
-
 .chart-container {
-  position: absolute; 
-  top: 250px; 
-  left: 450px; 
-  width: 90%;
+  position: absolute;
+  top: 250px;
+  left: 30%;
+  width: 65%;
   height: 300px;
-  max-width: 950px;
   padding: 20px;
   margin: 50px auto;
 }
@@ -111,43 +116,43 @@ body {
 .general-context {
   position: absolute;
   top: 120px;
-  left: 450px;
-  width: 90%;
+  left: 30%;
+  width: 65%;
   max-width: 950px;
   margin: 30px auto;
   padding: 20px;
-  background-color:  rgba(255, 255, 255, 0.8); 
+  background-color: rgba(255, 255, 255, 0.8);
   color: #400600;
   font-size: 14px;
   border-radius: 10px;
   box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
-  text-align: left;
 }
 
 .general-context h2 {
   font-size: 22px;
   margin: 0 0 10px 0;
-  color: #400600; /* Color del título */
+  color: #400600;
   font-weight: bold;
 }
 
 .general-context p {
   margin: 0;
   padding: 0;
-  line-height: 1.6; /* Espaciado entre líneas para mejor legibilidad */
-  color: #555; /* Color de texto gris para contraste */
+  line-height: 1.6;
+  color: #555;
 }
 
 .modal {
-  display: block; /* Asegúrate de ocultarlo después de la primera visita */
+  display: block;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.8); /* Mayor opacidad para oscurecer el fondo */
-  z-index: 9999; /* Nivel alto para asegurar que esté encima de todo */
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 9999;
 }
+
 .modal-content {
   position: absolute;
   top: 50%;
@@ -159,7 +164,7 @@ body {
   text-align: center;
   width: 80%;
   max-width: 500px;
-  z-index: 10000; /* Incluso más alto para asegurarse de que el contenido sea el foco principal */
+  z-index: 10000;
 }
 
 #explanationModal {
@@ -171,7 +176,7 @@ body {
   background: white;
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
   z-index: 1000;
   max-width: 400px;
   width: 80%;
