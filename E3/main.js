@@ -386,109 +386,88 @@ document.body.innerHTML = `
   </div>
 `;
 
-document.addEventListener("DOMContentLoaded", () => {
-    // Referencias a los elementos del DOM
-    const popup = document.getElementById("popup");
-    const overlay = document.getElementById("overlay");
-    const popupContent = document.getElementById("popupContent");
-    const closePopup = document.getElementById("closePopup");
-    const triangle = document.getElementById("triangle");
+let triangle = document.getElementById("triangle");
 
-    // Verifica que todos los elementos necesarios existan
-    if (!popup || !overlay || !popupContent || !closePopup || !triangle) {
-        console.error("Error: Elementos necesarios no encontrados en el DOM.");
-        return;
-    }
+function mapValue(inValue, minIn, maxIn, minOut, maxOut) {
+    return ((inValue - minIn) * (maxOut - minOut)) / (maxIn - minIn) + minOut;
+}
 
-    // Datos de las regiones
-    const data = [
-        { id: 'I', name: 'Tarapacá', hectareas: '48.55', incendios: '5' },
-        { id: 'II', name: 'Antofagasta', hectareas: '20.36', incendios: '7' },
-        { id: 'III', name: 'Atacama', hectareas: '14.09', incendios: '16' },
-        { id: 'IV', name: 'Coquimbo', hectareas: '150.52', incendios: '53' },
-        { id: 'V', name: 'Valparaíso', hectareas: '7553.55', incendios: '399' },
-        { id: 'VI', name: 'O’Higgins', hectareas: '7622.9', incendios: '421' },
-        { id: 'VII', name: 'Maule', hectareas: '32929.14', incendios: '901' },
-        { id: 'VIII', name: 'Bío Bío', hectareas: '181796.13', incendios: '1978' },
-        { id: 'IX', name: 'La Araucanía', hectareas: '116723.74', incendios: '1753' },
-        { id: 'X', name: 'Los Lagos', hectareas: '654.02', incendios: '272' },
-        { id: 'XI', name: 'Aisén', hectareas: '18.51', incendios: '30' },
-        { id: 'XII', name: 'Magallanes', hectareas: '2990.85', incendios: '20' },
-        { id: 'RM', name: 'Región Metropolitana', hectareas: '14626.08', incendios: '411' },
-        { id: 'XIV', name: 'Los Ríos', hectareas: '6748.74', incendios: '112' },
-        { id: 'XV', name: 'Arica y Parinacota', hectareas: '47.4', incendios: '5' }
-    ];
+const data = [
+      { id: 'I', name: 'Tarapacá', hectareas: '48.55', incendios: '5' },
+      { id: 'II', name: 'Antofagasta', hectareas: '20.36', incendios: '7' },
+      { id: 'III', name: 'Atacama', hectareas: '14.09', 'incendios': '16' },
+      { id: 'IV', name: 'Coquimbo', hectareas: '150.52', incendios: '53' },
+      { id: 'V', name: 'valparaíso', hectareas: '7553.55', incendios: '399' },
+      { id: 'VI', name: 'Bernardo Ojigins', hectareas: '7622.9', incendios: '421' },
+      { id: 'VII', name: 'Maule', hectareas: '32929.14', incendios: '901' },
+      { id: 'VIII', name: 'Bío Bío', hectareas: '181796.13', incendios: '1978'},
+      { id: 'IX', name: 'La Araucanía', hectareas: '116723.74', incendios: '1753' },
+      { id: 'X', name: 'Los Lagos', hectareas: '654.02', incendios: '272' },
+      { id: 'XI', name: 'Aisén', hectareas: '18.51', incendios: '30' },
+      { id: 'XII', name: 'Magallanes', hectareas: '2990.85', incendios: '20' },
+      { id: 'RM', name: 'Región Metropolitana', hectareas: '14626.08', incendios: '411' },
+      { id: 'XIV', name: 'Los Ríos', hectareas: '6748.74', incendios: '112' },
+      { id: 'XV', name: 'Arica y Parinacota', hectareas: '47.4', incendios: '5' }
+];
 
-    // Mostrar la ventana emergente con información
-    function showPopup(content) {
-        popupContent.innerHTML = content; // Actualiza el contenido dinámico
-        popup.style.display = "block";
-        overlay.style.display = "block";
-    }
+// Declarar variables para almacenar el nombre del estado actual y el anterior
 
-    // Ocultar la ventana emergente
-    function hidePopup() {
-        popup.style.display = "none";
-        overlay.style.display = "none";
-    }
+// Declarar variables para almacenar el nombre del estado actual y el anterior
+var oldStateName = "";
+var stateName = "";
+let infoBox = document.getElementById("info-box");
+let regionNameElem = document.getElementById("region-name");
+let regionHectareasElem = document.getElementById("region-hectareas");
+let regionIncendiosElem = document.getElementById("region-incendios");
+// Función que recibe datos (coordenadas x, y) y actualiza la posición del triángulo en el mapa
+Protobject.onReceived((data) => {
+    // Mapea el valor de data.y, que va de 0.2 a 0.8, al rango de 0 a 600 píxeles para el movimiento vertical
+    let cursorTop = mapValue(data.y, 0.2, 0.8, 0, 600);
+    triangle.style.top = cursorTop + 'px'; // Actualiza la posición vertical del triángulo
 
-    // Eventos para cerrar la ventana emergente
-    closePopup.addEventListener("click", hidePopup);
-    overlay.addEventListener("click", hidePopup);
+    // Mapea el valor de data.x, que va de 0.2 a 0.8, al rango de 0 a 800 píxeles para el movimiento horizontal
+    let cursorLeft = mapValue(data.x, 0.2, 0.8, 0, 800);
+    triangle.style.left = cursorLeft + 'px'; // Actualiza la posición horizontal del triángulo
 
-    // Variables para rastrear el estado seleccionado
-    let oldStateName = "";
-    let stateName = "";
-
-    // Función para mapear valores de un rango a otro
-    function mapValue(inValue, minIn, maxIn, minOut, maxOut) {
-        return ((inValue - minIn) * (maxOut - minOut)) / (maxIn - minIn) + minOut;
-    }
-
-    // Función para manejar datos recibidos y mover el triángulo
-    Protobject.onReceived((data) => {
-        // Verificar que los datos sean válidos
-        if (!data || typeof data.x !== 'number' || typeof data.y !== 'number') {
-            console.error("Error: Datos inválidos recibidos de Protobject.");
-            return;
-        }
-
-        // Mover el triángulo basado en los datos recibidos
-        const cursorTop = mapValue(data.y, 0.2, 0.8, 0, 600);
-        const cursorLeft = mapValue(data.x, 0.2, 0.8, 0, 800);
-        triangle.style.top = `${cursorTop}px`;
-        triangle.style.left = `${cursorLeft}px`;
-
-        // Detectar si el triángulo está sobre una región del mapa
-        activateHover(cursorLeft, cursorTop);
-    });
-
-    // Función para detectar hover en una región del mapa
-    function activateHover(x, y) {
-        const state = document.elementFromPoint(x, y); // Detecta el elemento bajo el cursor
-
-        // Verifica si el elemento detectado es un <path> de una región
-        if (state && state.tagName === 'path') {
-            stateName = state.getAttribute('id');
-        } else {
-            stateName = ""; // Resetea el estado si no se detecta una región
-        }
-
-        // Si se detecta un nuevo estado, procesarlo
-        if (stateName !== oldStateName && stateName) {
-            console.log("Estado seleccionado:", stateName);
-            oldStateName = stateName; // Actualiza el estado anterior
-
-            // Buscar información de la región y mostrarla en el popup
-            const region = data.find(el => el.id === stateName);
-            if (region) {
-                const content = `
-                    <strong>Región:</strong> ${region.name}<br>
-                    <strong>Hectáreas quemadas:</strong> ${region.hectareas}<br>
-                    <strong>Incendios:</strong> ${region.incendios}
-                `;
-                showPopup(content);
-            }
-        }
-    }
+    // Llama a la función para activar la detección de hover en base a las coordenadas del cursor
+    activateHover(cursorLeft, cursorTop);
 });
+
+// Función que detecta si el cursor está sobre un estado en el mapa SVG
+function activateHover(x, y) {
+    var state = document.elementFromPoint(x, y);
+
+    if (state && state.tagName === 'path') {
+        stateName = state.getAttribute('id');
+    }
+
+    if (stateName != oldStateName && stateName != undefined) {
+        console.log("Estado seleccionado:", stateName);
+        oldStateName = stateName;
+
+        data.forEach(function(el) {
+            if (el.id == stateName) {
+                // Actualiza el contenido del info-box
+                regionNameElem.textContent = `Región: ${el["name"]}`;
+                regionHectareasElem.textContent = `Hectáreas quemadas: ${el["hectareas"]}`;
+                regionIncendiosElem.textContent = `Incendios: ${el["incendios"]}`;
+
+                // Muestra el info-box
+                infoBox.style.display = "block";
+
+                // Opcional: Posiciona el info-box cerca del cursor
+                infoBox.style.top = `${y + 10}px`;
+                infoBox.style.left = `${x + 10}px`;
+
+                // Reproduce el audio
+                TextToSpeech.play(
+                    "es-CL",
+                    `${el["name"]} tiene ${parseInt(el["hectareas"])} hectáreas quemadas y ${el["incendios"]} incendios registrados.`
+                );
+            }
+        });
+    } else if (!stateName) {
+        // Oculta el info-box si no se detecta un estado
+        infoBox.style.display = "none";
+    }
+}
