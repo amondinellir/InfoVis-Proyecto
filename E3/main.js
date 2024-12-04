@@ -9,7 +9,7 @@ document.body.innerHTML = `
     }
     .svg-container { width: 800px; height: 600px; position: absolute; top: 0px;  left: 0px; }
   </style>
-  <h1 style="text-align:center; font: 40px sans-serif">Export de Fruta</h1>
+  <h1 style="text-align:center; font: 25px sans-serif">Incendios Forestales Chile, 2000 - 2024</h1>
   <div id="triangle"></div>
   <div class="svg-container">
 	<!-- Este es un mapa SVG de los Estados Unidos: https://simplemaps.com/resources/svg-us -->
