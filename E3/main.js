@@ -8,12 +8,21 @@ document.body.innerHTML = `
       border-bottom: 20px solid #333; transform: rotate(-45deg); position: absolute;  top: 0px; left: 0px; z-index: 10;
     }
     .svg-container { width: 800px; height: 600px; position: absolute; top: 0px;  left: 0px; }
-  </style>
-    #info-box p {
-    margin: 5px 0;
-    font-size: 16px;
-    color: #333;
+    #info-box {
+      position: absolute;
+      background-color: rgba(255, 255, 255, 0.9);
+      border: 1px solid #ccc;
+      padding: 10px;
+      border-radius: 5px;
+      display: none;
+      z-index: 20;
     }
+    #info-box p {
+      margin: 5px 0;
+      font-size: 14px;
+    }
+  </style>
+
   <h1 style="text-align:center; font: 25px sans-serif">Incendios Forestales Chile, 2000 - 2024</h1>
   <div id="triangle"></div>
   <div class="svg-container">
@@ -415,7 +424,6 @@ const data = [
       { id: 'XV', name: 'Arica y Parinacota', hectareas: '47.4', incendios: '5' }
 ];
 
-// Declarar variables para almacenar el nombre del estado actual y el anterior
 
 // Declarar variables para almacenar el nombre del estado actual y el anterior
 var oldStateName = "";
@@ -443,30 +451,25 @@ function activateHover(x, y) {
         stateName = state.getAttribute('id');
     }
 
-    if (stateName != oldStateName && stateName != undefined) {
-        console.log("Estado seleccionado:", stateName);
+    if (stateName !== oldStateName && stateName !== undefined) {
         oldStateName = stateName;
 
-        data.forEach(function(el) {
-            if (el.id == stateName) {
-                // Actualiza el contenido del info-box
-                regionNameElem.textContent = `Región: ${el["name"]}`;
-                regionHectareasElem.textContent = `Hectáreas quemadas: ${el["hectareas"]}`;
-                regionIncendiosElem.textContent = `Incendios: ${el["incendios"]}`;
+        let regionData = data.find((el) => el.id === stateName);
+        if (regionData) {
+            regionNameElem.textContent = `Región: ${regionData.name}`;
+            regionHectareasElem.textContent = `Hectáreas quemadas: ${regionData.hectareas}`;
+            regionIncendiosElem.textContent = `Incendios: ${regionData.incendios}`;
+            
+            infoBox.style.display = "block";
+            infoBox.style.top = `${y + 15}px`;
+            infoBox.style.left = `${x + 15}px`;
 
-                // Muestra el info-box
-                infoBox.style.display = "block";
-
-                // Opcional: Posiciona el info-box cerca del cursor
-                infoBox.style.top = `${y + 10}px`;
-                infoBox.style.left = `${x + 10}px`;
-
-                // Reproduce el audio
-                TextToSpeech.play(
-                    "es-CL",
-                    `${el["name"]} tiene ${parseInt(el["hectareas"])} hectáreas quemadas y ${el["incendios"]} incendios registrados.`
-                );
-            }
-        });
+            TextToSpeech.play(
+                "es-CL",
+                `${regionData.name} tiene ${parseFloat(regionData.hectareas)} hectáreas quemadas y ${regionData.incendios} incendios registrados.`
+            );
+        }
+    } else if (!stateName) {
+        infoBox.style.display = "none";
     }
 }
