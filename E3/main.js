@@ -9,6 +9,11 @@ document.body.innerHTML = `
     }
     .svg-container { width: 800px; height: 600px; position: absolute; top: 0px;  left: 0px; }
   </style>
+    #info-box p {
+    margin: 5px 0;
+    font-size: 16px;
+    color: #333;
+    }
   <h1 style="text-align:center; font: 25px sans-serif">Incendios Forestales Chile, 2000 - 2024</h1>
   <div id="triangle"></div>
   <div class="svg-container">
@@ -415,10 +420,7 @@ const data = [
 // Declarar variables para almacenar el nombre del estado actual y el anterior
 var oldStateName = "";
 var stateName = "";
-let infoBox = document.getElementById("info-box");
-let regionNameElem = document.getElementById("region-name");
-let regionHectareasElem = document.getElementById("region-hectareas");
-let regionIncendiosElem = document.getElementById("region-incendios");
+
 // Función que recibe datos (coordenadas x, y) y actualiza la posición del triángulo en el mapa
 Protobject.onReceived((data) => {
     // Mapea el valor de data.y, que va de 0.2 a 0.8, al rango de 0 a 600 píxeles para el movimiento vertical
@@ -466,8 +468,5 @@ function activateHover(x, y) {
                 );
             }
         });
-    } else if (!stateName) {
-        // Oculta el info-box si no se detecta un estado
-        infoBox.style.display = "none";
     }
 }
