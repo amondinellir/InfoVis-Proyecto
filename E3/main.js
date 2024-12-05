@@ -425,25 +425,21 @@ const data = [
 ];
 
 
-// Declarar variables para almacenar el nombre del estado actual y el anterior
+
 var oldStateName = "";
 var stateName = "";
 
-// Función que recibe datos (coordenadas x, y) y actualiza la posición del triángulo en el mapa
+
 Protobject.onReceived((data) => {
-    // Mapea el valor de data.y, que va de 0.2 a 0.8, al rango de 0 a 600 píxeles para el movimiento vertical
+
     let cursorTop = mapValue(data.y, 0.2, 0.8, 0, 600);
-    triangle.style.top = cursorTop + 'px'; // Actualiza la posición vertical del triángulo
-
-    // Mapea el valor de data.x, que va de 0.2 a 0.8, al rango de 0 a 800 píxeles para el movimiento horizontal
+    triangle.style.top = cursorTop + 'px'; 
     let cursorLeft = mapValue(data.x, 0.2, 0.8, 0, 800);
-    triangle.style.left = cursorLeft + 'px'; // Actualiza la posición horizontal del triángulo
-
-    // Llama a la función para activar la detección de hover en base a las coordenadas del cursor
+    triangle.style.left = cursorLeft + 'px'; 
     activateHover(cursorLeft, cursorTop);
 });
 
-// Función que detecta si el cursor está sobre un estado en el mapa SVG
+
 function activateHover(x, y) {
     var state = document.elementFromPoint(x, y);
 
